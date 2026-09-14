@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 BilimBattle — Сынып Платформасы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/editor.css">
+<link rel="stylesheet" href="css/game.css">
+<link rel="stylesheet" href="css/monster.css">
+</head>
+<body>
+
+<div id="bgfx">
+  <div class="bg-grad"></div>
+  <div class="bg-grid"></div>
+  <div class="orb" style="width:400px;height:400px;top:-100px;left:-100px;background:rgba(124,58,237,.25);animation-duration:12s;"></div>
+  <div class="orb" style="width:350px;height:350px;bottom:-80px;right:-80px;background:rgba(6,214,160,.15);animation-delay:-5s;animation-duration:9s;"></div>
+  <div class="orb" style="width:250px;height:250px;top:40%;left:55%;background:rgba(247,37,133,.1);animation-delay:-3s;animation-duration:11s;"></div>
+</div>
+
+<div id="toast-wrap"></div>
+
+<!-- LANDING -->
+<div class="scr on" id="scr-land">
+  <div class="land-wrap">
+    <div class="land-flame">🔥</div>
+    <h1 class="land-logo grad-text">BilimBattle</h1>
+    <p class="land-sub">ҚАЗАҚСТАННЫҢ №1 СЫНЫП ГЕЙМИФИКАЦИЯСЫ</p>
+    <p class="land-tag">Кез-келген пән · Кез-келген сынып · Барлық мұғалімге</p>
+    <div class="land-feats">
+      <div class="feat-card"><div class="feat-ico">🃏</div><div class="feat-t">5 Ойын Режимі</div><div class="feat-d">Bamboozle, Kahoot, Monster Raid, Рулетка және тағы басқа</div></div>
+      <div class="feat-card"><div class="feat-ico">🤖</div><div class="feat-t">AI Генератор</div><div class="feat-d">Тақырып енгізсең — автоматты сұрақтар жасалады (KK/RU/EN)</div></div>
+      <div class="feat-card"><div class="feat-ico">👾</div><div class="feat-t">Monster Raid</div><div class="feat-d">Бүкіл сынып бірге Boss монстрға қарсы шайқасады!</div></div>
+      <div class="feat-card"><div class="feat-ico">📁</div><div class="feat-t">Файл Импорт</div><div class="feat-d">Word, PDF, Excel, TXT — кез-келген файлдан сұрақ</div></div>
+      <div class="feat-card"><div class="feat-ico">📊</div><div class="feat-t">Статистика</div><div class="feat-d">Кімнің нәтижесі қандай — бәрі сақталып тұрады</div></div>
+      <div class="feat-card"><div class="feat-ico">🔊</div><div class="feat-t">Дыбыс Эффекттер</div><div class="feat-d">Дұрыс/қате жауап, монстр шайқасы — бәрінде дыбыс!</div></div>
+    </div>
+    <div class="land-btns">
+      <button class="btn btn-p btn-lg" onclick="showScr('scr-auth');switchAuthTab('login')">🚀 Кіру</button>
+      <button class="btn btn-ghost btn-lg" onclick="showScr('scr-auth');switchAuthTab('register')">✏️ Тіркелу</button>
+    </div>
+    <p style="margin-top:14px;font-size:.78rem;color:var(--dim);">Тегін · Жарнамасыз · Мұғалімдерге арналған</p>
+  </div>
+</div>
+
+<!-- AUTH -->
+<div class="scr" id="scr-auth">
+  <div class="auth-wrap">
+    <div class="auth-logo grad-text">🔥 BilimBattle</div>
+    <div class="auth-tabs">
+      <button class="auth-tab on" id="tab-login" onclick="switchAuthTab('login')">Кіру</button>
+      <button class="auth-tab" id="tab-reg" onclick="switchAuthTab('register')">Тіркелу</button>
+    </div>
+    <div id="auth-login" class="card">
+      <div class="col">
+        <div><div class="lbl">👤 Логин</div><input class="inp" id="l-user" placeholder="Никнейміңізді енгізіңіз" autocomplete="off"></div>
+        <div><div class="lbl">🔑 Пароль</div><input class="inp" id="l-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+        <button class="btn btn-p btn-full btn-lg" onclick="doLogin()">➜ Кіру</button>
+        <p style="text-align:center;font-size:.8rem;color:var(--dim);">Аккаунт жоқ па? <span class="link" onclick="switchAuthTab('register')">Тіркелу</span></p>
+      </div>
+    </div>
+    <div id="auth-reg" class="card" style="display:none;">
+      <div class="col">
+        <div><div class="lbl">👤 Никнейм <span style="color:var(--r)">*уникальный</span></div><input class="inp" id="r-user" placeholder="teacher_aizat (латын/цифр/_)"></div>
+        <div><div class="lbl">📛 Аты-жөні</div><input class="inp" id="r-name" placeholder="Айзат Бекова"></div>
+        <div><div class="lbl">🏫 Мектеп</div><input class="inp" id="r-school" placeholder="№15 мектеп, Алматы"></div>
+        <div><div class="lbl">🔑 Пароль</div><input class="inp" id="r-pass" type="password" placeholder="Кем дегенде 4 таңба"></div>
+        <div><div class="lbl">🔑 Қайталау</div><input class="inp" id="r-pass2" type="password" placeholder="Пароль қайталаңыз" onkeydown="if(event.key==='Enter')doRegister()"></div>
+        <button class="btn btn-g btn-full btn-lg" onclick="doRegister()">✅ Тіркелу</button>
+      </div>
+    </div>
+    <button class="btn btn-ghost" style="margin-top:10px;width:100%;" onclick="showScr('scr-land')">← Басты бет</button>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="scr" id="scr-admin">
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <div class="admin-logo">⚡ Admin</div>
+      <button class="admin-nav on" id="an-teachers" onclick="adminPage('teachers')"><span>👨‍🏫</span> Мұғалімдер</button>
+      <button class="admin-nav" id="an-quizzes" onclick="adminPage('quizzes')"><span>📝</span> Тесттер</button>
+      <button class="admin-nav" id="an-stats" onclick="adminPage('stats')"><span>📊</span> Статистика</button>
+      <button class="admin-nav" id="an-settings" onclick="adminPage('settings')"><span>⚙️</span> Баптаулар</button>
+      <div style="margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);">
+        <button class="admin-nav" onclick="doLogout()"><span>🚪</span> Шығу</button>
+      </div>
+    </div>
+    <div class="dash-main">
+      <div class="page-sec on" id="ap-teachers">
+        <div class="dash-header"><h2 class="dash-title">👨‍🏫 Мұғалімдер</h2><span class="badge badge-y" id="teachers-count">0</span></div>
+        <div class="card" style="margin-bottom:14px;"><input class="inp" id="admin-search" placeholder="🔍 Іздеу..." oninput="renderTeacherList()"></div>
+        <div id="teacher-list" class="col" style="gap:10px;"></div>
+      </div>
+      <div class="page-sec" id="ap-quizzes">
+        <div class="dash-header"><h2 class="dash-title">📝 Барлық тесттер</h2></div>
+        <div id="admin-quiz-list" class="quiz-grid"></div>
+      </div>
+      <div class="page-sec" id="ap-stats">
+        <div class="dash-header"><h2 class="dash-title">📊 Жалпы статистика</h2></div>
+        <div class="stats-grid" id="admin-stats-grid"></div>
+      </div>
+      <div class="page-sec" id="ap-settings">
+        <div class="dash-header"><h2 class="dash-title">⚙️ Баптаулар</h2></div>
+        <div class="card" style="max-width:420px;">
+          <div class="col">
+            <div><div class="lbl">Жаңа логин</div><input class="inp" id="admin-new-login" placeholder="Жаңа логин"></div>
+            <div><div class="lbl">Жаңа пароль</div><input class="inp" id="admin-new-pass" type="password" placeholder="Жаңа пароль"></div>
+            <button class="btn btn-p" onclick="saveAdminCreds()">💾 Сақтау</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER DASHBOARD -->
+<div class="scr" id="scr-dash">
+  <div class="dash-layout">
+    <div class="sidebar">
+      <div class="sidebar-logo">🔥 Bilim<span>Battle</span></div>
+      <button class="nav-item on" id="ni-home" onclick="dashPage('home')"><span class="nav-ico">🏠</span> Басты бет</button>
+      <button class="nav-item" id="ni-quizzes" onclick="dashPage('quizzes')"><span class="nav-ico">📝</span> Тесттерім</button>
+      <button class="nav-item" id="ni-create" onclick="dashPage('create');openEditor(null)"><span class="nav-ico">✏️</span> Тест жасау</button>
+      <button class="nav-item" id="ni-play" onclick="dashPage('play')"><span class="nav-ico">🎮</span> Ойнату</button>
+      <button class="nav-item" id="ni-stats" onclick="dashPage('stats')"><span class="nav-ico">📊</span> Статистика</button>
+      <div class="nav-sep"></div>
+      <button class="nav-item" id="ni-profile" onclick="dashPage('profile')"><span class="nav-ico">👤</span> Профиль</button>
+      <div class="sidebar-user">
+        <div style="font-size:.75rem;color:var(--dim);">Кіргенсіз:</div>
+        <div style="font-weight:800;" id="sb-username">—</div>
+        <div style="font-size:.75rem;color:var(--dim);" id="sb-school">—</div>
+        <button class="btn btn-ghost btn-sm btn-full" style="margin-top:8px;" onclick="doLogout()">🚪 Шығу</button>
+      </div>
+    </div>
+    <div class="dash-main">
+      <!-- HOME -->
+      <div class="page-sec on" id="dp-home">
+        <div class="dash-header">
+          <div><div style="font-size:.82rem;color:var(--dim);font-weight:700;">Қош келдіңіз,</div><h2 class="dash-title" id="home-username">Мұғалім!</h2></div>
+          <div class="dash-header-right"><button class="btn btn-p" onclick="dashPage('create');openEditor(null)">+ Жаңа тест</button></div>
+        </div>
+        <div class="stats-grid" id="home-stats"></div>
+        <h3 class="section-title">🕐 Соңғы тесттер</h3>
+        <div id="recent-quizzes" class="quiz-grid"></div>
+        <h3 class="section-title" style="margin-top:28px;">🎮 Ойын режимдері</h3>
+        <div class="modes-grid" id="modes-grid"></div>
+      </div>
+      <!-- QUIZZES -->
+      <div class="page-sec" id="dp-quizzes">
+        <div class="dash-header"><h2 class="dash-title">📝 Тесттерім</h2><div class="dash-header-right"><button class="btn btn-p" onclick="dashPage('create');openEditor(null)">+ Жаңа тест</button></div></div>
+        <div class="card" style="margin-bottom:14px;"><input class="inp" id="quiz-search" placeholder="🔍 Тест іздеу..." oninput="renderMyQuizzes()"></div>
+        <div id="my-quizzes" class="quiz-grid"></div>
+      </div>
+      <!-- EDITOR -->
+      <div class="page-sec" id="dp-create">
+        <div class="dash-header">
+          <h2 class="dash-title" id="editor-title">✏️ Жаңа тест</h2>
+          <div class="dash-header-right">
+            <button class="btn btn-ghost btn-sm" onclick="dashPage('quizzes')">← Артқа</button>
+            <button class="btn btn-y btn-sm" onclick="previewQuiz()">👁 Алдын ала</button>
+            <button class="btn btn-g" onclick="saveQuiz()">💾 Сақтау</button>
+          </div>
+        </div>
+        <!-- AI Panel -->
+        <div class="ai-panel">
+          <div class="ai-title">🤖 AI Генератор <span class="badge badge-p">Claude AI</span></div>
+          <div class="ai-desc">Тақырып пен деңгей енгізіңіз — AI сұрақтарды өзі жасайды (Қазақ / Орыс / Ағылшын тілдерінде)</div>
+          <div class="ai-key-row">
+            <div style="flex:1;">
+              <div class="lbl" style="margin-bottom:5px;">🔑 Anthropic API Key <a href="https://console.anthropic.com/keys" target="_blank" style="color:var(--b);font-size:.75rem;font-weight:700;text-decoration:none;">→ console.anthropic.com-дан алыңыз</a></div>
+              <div style="position:relative;">
+                <input class="inp" id="ai-apikey" type="password" placeholder="sk-ant-api03-..." autocomplete="off"
+                  style="padding-right:80px;">
+                <button onclick="toggleApiKeyVis()" id="ai-key-toggle"
+                  style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:var(--gl2);border:1px solid var(--br);border-radius:7px;padding:4px 10px;color:var(--dim);cursor:pointer;font-size:.76rem;font-weight:800;">👁 Көру</button>
+              </div>
+              <div style="font-size:.72rem;color:var(--dim);margin-top:4px;">🔒 Кілт тек браузеріңізде сақталады, сервер жоқ</div>
+            </div>
+          </div>
+          <div class="ai-row" style="margin-top:10px;">
+            <input class="inp" id="ai-topic" placeholder="Тақырып (мыс: Фотосинтез, Бірінші дүниежүзілік соғыс...)">
+            <select class="inp ai-sel" id="ai-grade"><option value="1-4">1-4 сынып</option><option value="5-6">5-6 сынып</option><option value="7-8">7-8 сынып</option><option value="9-11" selected>9-11 сынып</option></select>
+            <select class="inp ai-sel" id="ai-lang"><option value="kk">🇰🇿 Қазақша</option><option value="ru">🇷🇺 Орысша</option><option value="en">🇬🇧 Ағылшын</option></select>
+            <input class="inp ai-sel" id="ai-count" type="number" value="10" min="3" max="20" placeholder="Саны">
+            <button class="btn btn-p" onclick="generateAI()" id="ai-btn">✨ Жасау</button>
+          </div>
+          <div class="ai-progress" id="ai-progress">
+            <div class="ai-bar"><div class="ai-bar-fill" id="ai-bar-fill"></div></div>
+            <span id="ai-bar-text" style="font-size:.8rem;color:var(--dim);white-space:nowrap;">Жасалуда...</span>
+          </div>
+        </div>
+        <!-- File Import -->
+        <div class="file-panel">
+          <div class="file-panel-title">📁 Файлдан импорт</div>
+          <div class="file-instructions">
+            <div class="fi-title">📋 Файл форматы — TXT (.txt) ең жақсы жұмыс істейді</div>
+            <div class="fi-example">
+              <div class="fi-ex-label">✅ Осылай жаз:</div>
+              <pre class="fi-code">1. Квадрат түбір дегеніміз не?
+A) Санның өзін өзіне көбейтуі
+B) *Санды өзіне n рет көбейткен мән
+C) Санның квадраты
+D) Теріс сан
+
+2. √25 = ?
+A) *5
+B) 125
+C) 625
+D) 25</pre>
+              <div class="fi-ex-note">⭐ <strong>Дұрыс жауапқа * белгісін қой</strong> (жауаптан бұрын)</div>
+            </div>
+          </div>
+          <div class="file-zone" id="file-zone" onclick="document.getElementById('file-inp').click()"
+            ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleFileDrop(event)">
+            <div class="file-ico">📂</div>
+            <div class="file-t">Файлды осында тастаңыз немесе басыңыз</div>
+            <div class="file-s">TXT · Word (.docx) · Excel (.xlsx) · PDF</div>
+          </div>
+          <input type="file" id="file-inp" accept=".txt,.docx,.xlsx,.pdf" onchange="handleFileImport(event)">
+          <div class="file-preview" id="file-preview"></div>
+        </div>
+        <!-- Quiz meta -->
+        <div class="card" style="margin-bottom:18px;">
+          <div class="ed-meta-grid">
+            <div><div class="lbl">📛 Тест атауы</div><input class="inp" id="ed-title" placeholder="Тест атауын енгізіңіз"></div>
+            <div><div class="lbl">📚 Пән</div><input class="inp" id="ed-subject" placeholder="Математика, Биология..."></div>
+            <div><div class="lbl">🎓 Сынып</div><select class="inp" id="ed-grade"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>
+            <div><div class="lbl">🌐 Тіл</div><select class="inp" id="ed-lang"><option value="kk">Қазақша</option><option value="ru">Орысша</option><option value="en">Ағылшын</option></select></div>
+          </div>
+        </div>
+        <div class="q-list-header">
+          <span id="q-count-label">0 сұрақ</span>
+          <button class="btn btn-ghost btn-sm" onclick="addQuestion()">+ Сұрақ қосу</button>
+        </div>
+        <div id="q-list" class="q-list"></div>
+        <button class="add-q-btn" onclick="addQuestion()">＋ Жаңа сұрақ қосу</button>
+      </div>
+      <!-- PLAY -->
+      <div class="page-sec" id="dp-play">
+        <div class="dash-header"><h2 class="dash-title">🎮 Режим таңдаңыз</h2></div>
+        <div style="margin-bottom:20px;">
+          <div class="lbl">📝 Тест таңдаңыз</div>
+          <select class="inp" id="play-quiz-select" style="max-width:420px;" onchange="updatePlayQuiz()"><option value="">— Тест таңдаңыз —</option></select>
+        </div>
+        <div class="modes-big-grid" id="modes-big-grid"></div>
+      </div>
+      <!-- STATS -->
+      <div class="page-sec" id="dp-stats">
+        <div class="dash-header"><h2 class="dash-title">📊 Статистика</h2></div>
+        <div class="stats-grid" id="my-stats-grid"></div>
+        <h3 class="section-title">🏆 Ойын тарихы</h3>
+        <div id="game-history" class="col" style="gap:10px;"></div>
+      </div>
+      <!-- PROFILE -->
+      <div class="page-sec" id="dp-profile">
+        <div class="dash-header"><h2 class="dash-title">👤 Профиль</h2></div>
+        <div class="card" style="max-width:460px;">
+          <div class="col">
+            <div style="text-align:center;padding:8px 0;">
+              <div style="font-size:3.5rem;" id="profile-av">👨‍🏫</div>
+              <div style="font-family:'Fredoka One',cursive;font-size:1.4rem;margin-top:6px;" id="profile-name-disp"></div>
+              <div style="color:var(--dim);font-size:.85rem;" id="profile-nick-disp"></div>
+            </div>
+            <div class="divider"></div>
+            <div><div class="lbl">📛 Аты-жөні</div><input class="inp" id="p-name"></div>
+            <div><div class="lbl">🏫 Мектеп</div><input class="inp" id="p-school"></div>
+            <div><div class="lbl">🔑 Жаңа пароль (бос қалдырсаңыз өзгермейді)</div><input class="inp" id="p-pass" type="password" placeholder="Жаңа пароль"></div>
+            <button class="btn btn-g" onclick="saveProfile()">💾 Сақтау</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GAME SETUP -->
+<div class="scr" id="scr-setup">
+  <div class="setup-wrap card">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap;">
+      <button class="btn btn-ghost btn-sm" onclick="showScr('scr-dash');dashPage('play')">← Артқа</button>
+      <h2 style="font-family:'Fredoka One',cursive;font-size:1.5rem;" id="setup-mode-title">Баптау</h2>
+      <div class="badge badge-p" id="setup-mode-badge"></div>
+    </div>
+    <div id="setup-teams-section">
+      <div class="lbl">👥 Топ саны</div>
+      <div class="chips" style="margin-bottom:16px;" id="team-count-chips">
+        <button class="chip" onclick="setTeamCount(1)">1 топ</button>
+        <button class="chip on" onclick="setTeamCount(2)">2 топ</button>
+        <button class="chip" onclick="setTeamCount(3)">3 топ</button>
+        <button class="chip" onclick="setTeamCount(4)">4 топ</button>
+      </div>
+      <div class="lbl">✏️ Топ атаулары мен аватарлары</div>
+      <div id="team-names-wrap" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px;"></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="lbl">⏱️ Таймер</div>
+      <div class="tog-wrap" style="margin-bottom:10px;">
+        <label class="tog"><input type="checkbox" id="timer-tog" checked onchange="toggleTimerSetup()"><div class="tsl"></div></label>
+        <span id="timer-tog-lbl" style="font-weight:700;">Қосулы</span>
+      </div>
+      <div id="timer-secs-wrap" class="chips">
+        <button class="chip" onclick="setTimerSec(10)">10с</button>
+        <button class="chip on" onclick="setTimerSec(20)">20с</button>
+        <button class="chip" onclick="setTimerSec(30)">30с</button>
+        <button class="chip" onclick="setTimerSec(45)">45с</button>
+      </div>
+    </div>
+    <div id="setup-monster-section" style="display:none;margin-bottom:18px;">
+      <div class="lbl">👾 Монстр күші</div>
+      <div class="chips" id="monster-diff-chips">
+        <button class="chip" onclick="setMonsterDiff('easy')">😊 Оңай (300 HP)</button>
+        <button class="chip on" onclick="setMonsterDiff('normal')">😐 Орта (500 HP)</button>
+        <button class="chip" onclick="setMonsterDiff('hard')">😡 Қиын (800 HP)</button>
+        <button class="chip" onclick="setMonsterDiff('legend')">💀 Легенда (1200 HP)</button>
+      </div>
+    </div>
+    <button class="btn btn-p btn-full btn-lg" onclick="launchGame()">🚀 Ойынды бастау!</button>
+  </div>
+</div>
+
+<!-- BAMBOOZLE -->
+<div class="scr" id="scr-bamboozle" style="padding:0;justify-content:flex-start;">
+  <div class="topbar" id="bb-topbar"></div>
+  <div class="game-body">
+    <div class="cur-team-strip" id="bb-cur-team"></div>
+    <div class="q-grid" id="bb-grid"></div>
+  </div>
+</div>
+
+<!-- KAHOOT -->
+<div class="scr" id="scr-kahoot" style="padding:0;justify-content:flex-start;">
+  <div class="topbar" id="kh-topbar"></div>
+  <div class="game-body" id="kh-body" style="padding:80px 16px 20px;max-width:820px;margin:0 auto;width:100%;"></div>
+</div>
+
+<!-- MONSTER RAID -->
+<div class="scr" id="scr-monster" style="padding:0;justify-content:flex-start;overflow:hidden;">
+  <div class="topbar" id="mr-topbar"></div>
+  <div class="monster-arena" id="monster-arena">
+    <div class="monster-top">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span id="mr-monster-name" class="monster-name"></span>
+        <span id="mr-monster-level" class="monster-level-badge"></span>
+      </div>
+      <div class="monster-hp-wrap">
+        <div class="monster-hp-bar"><div class="monster-hp-fill" id="mr-hp-fill"></div></div>
+        <span id="mr-hp-text" class="hp-text"></span>
+      </div>
+    </div>
+    <div class="monster-center">
+      <div class="monster-svg-wrap" id="mr-monster-svg"></div>
+      <div class="damage-flash" id="damage-flash"></div>
+      <div class="crit-text" id="crit-text" style="display:none;">💥 CRITICAL HIT!</div>
+    </div>
+    <div class="monster-bottom">
+      <div id="mr-q-text" class="mr-q-text"></div>
+      <div id="mr-opts" class="mr-opts-grid"></div>
+    </div>
+    <div class="teams-hp-row" id="mr-teams-hp"></div>
+  </div>
+</div>
+
+<!-- ROULETTE -->
+<div class="scr" id="scr-roulette" style="padding:0;justify-content:flex-start;">
+  <div class="topbar" id="rl-topbar"></div>
+  <div class="game-body" style="padding-top:80px;flex-direction:row;align-items:flex-start;justify-content:center;gap:24px;flex-wrap:wrap;">
+    <div class="roulette-left">
+      <div class="roulette-wheel-wrap">
+        <canvas id="roulette-canvas" width="360" height="360"></canvas>
+        <div class="roulette-pointer">▼</div>
+      </div>
+      <button class="btn btn-p btn-lg" id="spin-btn" onclick="spinRoulette()" style="width:100%;margin-top:14px;">🎰 Айналдыру!</button>
+    </div>
+    <div class="roulette-right">
+      <div id="rl-q-wrap" class="rl-q-wrap" style="display:none;"></div>
+      <div class="roulette-scores" id="roulette-scores"></div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="scr" id="scr-results">
+  <div class="results-wrap">
+    <div style="font-size:3.5rem;text-align:center;margin-bottom:8px;">🏆</div>
+    <h2 class="results-title grad-text">Ойын Аяқталды!</h2>
+    <div id="results-mode-lbl" class="badge badge-p" style="margin-bottom:20px;font-size:.88rem;padding:6px 16px;display:inline-block;"></div>
+    <div class="podium" id="results-podium"></div>
+    <div id="results-others" style="margin-bottom:16px;"></div>
+    <div id="results-stats-grid" class="stats-grid" style="max-width:600px;margin:0 auto 20px;"></div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-p btn-lg" onclick="playAgain()">🔄 Қайта ойна</button>
+      <button class="btn btn-ghost btn-lg" onclick="showScr('scr-dash');dashPage('home')">🏠 Дашборд</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay hide" id="q-modal">
+  <div class="qmodal" id="qmodal-inner">
+    <div class="qmodal-accent"></div>
+    <div class="mod-team-tag" id="mod-team-tag"></div>
+    <div class="mod-meta" id="mod-meta"></div>
+    <div class="mod-timer-bar" id="mod-timer-bar" style="display:none;"><div class="mod-timer-fill" id="mod-timer-fill"></div></div>
+    <div class="mod-q" id="mod-q"></div>
+    <div class="mod-formula" id="mod-formula"></div>
+    <div class="mod-opts" id="mod-opts"></div>
+    <div class="mod-hint" id="mod-hint"></div>
+    <div class="mod-actions">
+      <div style="margin-right:auto;display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="showHint()" id="hint-btn">💡 Кеңес</button>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="skipQ()">⏭ Өткізу</button>
+      <button class="btn btn-r btn-sm" onclick="markAns(false)">❌ Қате</button>
+      <button class="btn btn-g btn-sm" onclick="markAns(true)">✅ Дұрыс</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hide" id="meme-modal">
+  <div class="meme-card" id="meme-card">
+    <div class="meme-emoji" id="meme-emoji"></div>
+    <div class="meme-title" id="meme-title"></div>
+    <div class="meme-sub" id="meme-sub"></div>
+    <div class="meme-kaz" id="meme-kaz"></div>
+    <div class="meme-pts" id="meme-pts"></div>
+    <button class="btn btn-full" id="meme-btn" onclick="closeMeme()">Жалғастыру ➜</button>
+  </div>
+</div>
+
+<div class="modal-overlay hide" id="bonus-modal">
+  <div class="bonus-card">
+    <div class="bonus-star" id="bonus-star">⭐</div>
+    <div class="bonus-title">БОНУС СҰРАҚ!</div>
+    <div class="bonus-pts" id="bonus-pts">+50</div>
+    <div class="bonus-desc" id="bonus-desc">Дұрыс жауап бергенде қосылады!</div>
+    <button class="btn btn-y btn-full" onclick="closeBonus()">🔓 Сұрақты ашу</button>
+  </div>
+</div>
+
+<div class="modal-overlay hide" id="confirm-modal">
+  <div class="confirm-card card">
+    <div style="font-size:2.5rem;text-align:center;margin-bottom:10px;">⚠️</div>
+    <h3 id="confirm-title" style="text-align:center;margin-bottom:8px;font-family:'Fredoka One',cursive;font-size:1.3rem;"></h3>
+    <p id="confirm-body" style="text-align:center;color:var(--dim);margin-bottom:18px;font-size:.88rem;"></p>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-ghost btn-full" onclick="closeModal('confirm-modal')">Жоқ</button>
+      <button class="btn btn-r btn-full" id="confirm-ok-btn">Иә, өшіру</button>
+    </div>
+  </div>
+</div>
+
+<div id="score-fly-wrap" style="position:fixed;inset:0;pointer-events:none;z-index:500;"></div>
+<div id="particle-wrap" style="position:fixed;inset:0;pointer-events:none;z-index:600;overflow:hidden;"></div>
+
+<script src="js/sounds.js"></script>
+<script src="js/data.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/editor.js"></script>
+<script src="js/ai-generator.js"></script>
+<script src="js/game-core.js"></script>
+<script src="js/game-bamboozle.js"></script>
+<script src="js/game-kahoot.js"></script>
+<script src="js/game-monster.js"></script>
+<script src="js/game-roulette.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
