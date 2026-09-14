@@ -1,0 +1,83 @@
+/* ═══════════════════════════════════════
+   DASHBOARD.CSS — Teacher & Admin panels
+═══════════════════════════════════════ */
+
+/* ── DASH LAYOUT ── */
+.dash-layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh;width:100%;position:relative;z-index:1;}
+@media(max-width:720px){.dash-layout{grid-template-columns:1fr}}
+.dash-main{padding:26px;overflow-y:auto;min-height:100vh;}
+.dash-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap;}
+.dash-title{font-family:'Fredoka One',cursive;font-size:1.75rem;}
+.dash-header-right{margin-left:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+
+/* ── SIDEBAR ── */
+.sidebar{background:rgba(14,14,38,.97);border-right:1px solid var(--br);padding:18px 12px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sidebar::-webkit-scrollbar{display:none;}
+.sidebar-logo{font-family:'Fredoka One',cursive;font-size:1.55rem;padding:8px 10px 16px;border-bottom:1px solid var(--br);margin-bottom:8px;}
+.sidebar-logo span{color:var(--r);}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:12px;cursor:pointer;font-weight:700;font-size:.93rem;color:var(--dim);transition:.18s;border:none;background:transparent;width:100%;text-align:left;}
+.nav-item:hover{background:var(--gl2);color:var(--w);}
+.nav-item.on{background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(247,37,133,.2));color:var(--w);border:1px solid rgba(124,58,237,.2);}
+.nav-ico{font-size:1.05rem;width:20px;text-align:center;}
+.nav-sep{height:1px;background:var(--br);margin:6px 0;}
+.sidebar-user{margin-top:auto;padding-top:12px;border-top:1px solid var(--br);}
+
+/* ── STATS GRID ── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-bottom:24px;}
+.stat-card{background:var(--gl);border:1px solid var(--br);border-radius:15px;padding:18px;text-align:center;}
+.stat-card .si{font-size:1.8rem;margin-bottom:7px;}
+.stat-card .sv{font-family:'Fredoka One',cursive;font-size:2rem;}
+.stat-card .sl{font-size:.76rem;color:var(--dim);font-weight:700;margin-top:4px;}
+
+/* ── QUIZ CARDS ── */
+.quiz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:13px;}
+.quiz-card{background:var(--gl);border:1px solid var(--br);border-radius:17px;padding:18px;transition:.22s;}
+.quiz-card:hover{background:var(--gl2);transform:translateY(-4px);box-shadow:0 14px 35px rgba(0,0,0,.25);}
+.qc-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:11px;}
+.qc-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.qc-info{flex:1;}
+.qc-title{font-weight:800;font-size:.97rem;margin-bottom:4px;line-height:1.3;}
+.qc-sub{font-size:.76rem;color:var(--dim);font-weight:600;}
+.qc-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.qc-actions{display:flex;gap:7px;flex-wrap:wrap;}
+
+/* ── MODES GRID ── */
+.modes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
+.mode-card{background:var(--gl);border:1px solid var(--br);border-radius:16px;padding:18px;text-align:center;cursor:pointer;transition:.22s;}
+.mode-card:hover{transform:translateY(-4px);background:var(--gl2);}
+.mode-ico{font-size:2.2rem;margin-bottom:8px;}
+.mode-name{font-family:'Fredoka One',cursive;font-size:1rem;margin-bottom:4px;}
+.mode-desc{font-size:.76rem;color:var(--dim);font-weight:600;}
+.modes-big-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.mode-big-card{background:var(--gl);border:2px solid var(--br);border-radius:20px;padding:24px;text-align:center;cursor:pointer;transition:.25s;position:relative;overflow:hidden;}
+.mode-big-card::before{content:'';position:absolute;inset:0;opacity:0;transition:.3s;}
+.mode-big-card:hover{transform:translateY(-6px);}
+.mode-big-card:hover::before{opacity:1;}
+.mode-big-card.disabled{opacity:.4;cursor:not-allowed;}
+.mode-big-ico{font-size:3rem;margin-bottom:12px;display:block;}
+.mode-big-name{font-family:'Fredoka One',cursive;font-size:1.3rem;margin-bottom:6px;}
+.mode-big-desc{font-size:.82rem;color:var(--dim);font-weight:600;line-height:1.45;margin-bottom:14px;}
+.mode-big-badge{display:inline-block;font-size:.7rem;font-weight:900;padding:3px 10px;border-radius:20px;}
+
+/* ── GAME HISTORY ── */
+.history-item{background:var(--gl);border:1px solid var(--br);border-radius:13px;padding:14px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.history-mode{font-size:1.4rem;}
+.history-info{flex:1;}
+.history-title{font-weight:800;font-size:.95rem;}
+.history-meta{font-size:.78rem;color:var(--dim);font-weight:600;}
+.history-score{font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--y);}
+
+/* ── ADMIN ── */
+.admin-layout{display:grid;grid-template-columns:220px 1fr;min-height:100vh;width:100%;position:relative;z-index:1;}
+@media(max-width:720px){.admin-layout{grid-template-columns:1fr}}
+.admin-sidebar{background:rgba(20,5,40,.98);border-right:1px solid rgba(124,58,237,.25);padding:18px 12px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;}
+.admin-logo{font-family:'Fredoka One',cursive;font-size:1.4rem;padding:8px 10px 14px;border-bottom:1px solid rgba(124,58,237,.25);margin-bottom:8px;color:var(--y);}
+.admin-nav{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:700;font-size:.9rem;color:rgba(255,255,255,.6);transition:.18s;border:none;background:transparent;width:100%;text-align:left;}
+.admin-nav:hover{background:rgba(124,58,237,.15);color:#fff;}
+.admin-nav.on{background:rgba(124,58,237,.25);color:var(--p2);border:1px solid rgba(124,58,237,.3);}
+.teacher-row{background:var(--gl);border:1px solid var(--br);border-radius:13px;padding:14px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.teacher-av{font-size:1.8rem;}
+.teacher-info{flex:1;}
+.teacher-name{font-weight:800;font-size:.97rem;}
+.teacher-meta{font-size:.78rem;color:var(--dim);}
+.teacher-actions{display:flex;gap:8px;}
