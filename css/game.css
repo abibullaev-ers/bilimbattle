@@ -1,0 +1,66 @@
+/* ═══════════════════════════════════════
+   GAME.CSS — Bamboozle, Kahoot, Roulette
+═══════════════════════════════════════ */
+
+/* ── KAHOOT ── */
+.kh-q-num{font-family:'Fredoka One',cursive;font-size:1rem;color:var(--dim);letter-spacing:2px;text-transform:uppercase;text-align:center;margin-bottom:8px;}
+.kh-q-text{font-size:clamp(1.2rem,4vw,2rem);font-weight:800;text-align:center;line-height:1.4;margin-bottom:8px;min-height:60px;}
+.kh-formula{font-family:'Fredoka One',cursive;font-size:clamp(1.4rem,5vw,2.5rem);color:var(--y);text-align:center;margin-bottom:22px;}
+.kh-opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+@media(max-width:500px){.kh-opts-grid{grid-template-columns:1fr}}
+.kh-opt{display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:16px;border:3px solid transparent;cursor:pointer;font-family:'Nunito',sans-serif;font-size:clamp(1rem,2.8vw,1.2rem);font-weight:800;color:#fff;text-align:left;transition:all .15s;position:relative;overflow:hidden;}
+.kh-opt::before{content:'';position:absolute;inset:0;opacity:0;background:rgba(255,255,255,.12);transition:.2s;}
+.kh-opt:hover:not(:disabled)::before{opacity:1;}
+.kh-opt:hover:not(:disabled){transform:translateY(-3px);}
+.kh-opt .kh-letter{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',cursive;font-size:1rem;flex-shrink:0;}
+.kh-opt-a{background:linear-gradient(135deg,#c0392b,#e74c3c);box-shadow:0 5px 18px rgba(231,76,60,.3);}
+.kh-opt-b{background:linear-gradient(135deg,#1a3a8f,#2980b9);box-shadow:0 5px 18px rgba(41,128,185,.3);}
+.kh-opt-c{background:linear-gradient(135deg,#e67e22,#f39c12);box-shadow:0 5px 18px rgba(243,156,18,.3);}
+.kh-opt-d{background:linear-gradient(135deg,#27ae60,#2ecc71);box-shadow:0 5px 18px rgba(46,204,113,.3);}
+.kh-opt.correct{border-color:#2ecc71!important;box-shadow:0 0 30px rgba(46,204,113,.6)!important;animation:correctPop .5s ease;}
+.kh-opt.wrong{border-color:#e74c3c!important;opacity:.5;animation:wrongShake .4s ease;}
+@keyframes correctPop{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+@keyframes wrongShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+/* Timer ring */
+.timer-ring-wrap{display:flex;justify-content:center;margin-bottom:14px;}
+.kh-timer-svg{transform:rotate(-90deg);}
+.kh-timer-num{font-family:'Fredoka One',cursive;font-size:1.3rem;fill:var(--w);}
+/* Kahoot scoreboard between questions */
+.kh-scoreboard{background:var(--gl);border:1px solid var(--br);border-radius:16px;padding:16px;margin-top:16px;}
+.kh-sb-title{font-family:'Fredoka One',cursive;font-size:1.1rem;margin-bottom:12px;text-align:center;}
+.kh-sb-row{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;}
+.kh-sb-row:nth-child(odd){background:rgba(255,255,255,.04);}
+.kh-sb-rank{font-family:'Fredoka One',cursive;font-size:1rem;color:var(--dim);width:24px;}
+.kh-sb-name{flex:1;font-weight:800;}
+.kh-sb-score{font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--y);}
+.kh-sb-delta{font-size:.8rem;color:var(--g);font-weight:800;min-width:40px;text-align:right;}
+
+/* ── ROULETTE ── */
+.roulette-left{display:flex;flex-direction:column;align-items:center;}
+.roulette-right{flex:1;min-width:280px;max-width:480px;}
+.roulette-wheel-wrap{position:relative;width:360px;height:360px;}
+.roulette-pointer{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:1.8rem;color:var(--y);text-shadow:0 0 10px rgba(255,214,10,.5);z-index:10;}
+#roulette-canvas{border-radius:50%;box-shadow:0 0 40px rgba(124,58,237,.3),0 0 80px rgba(0,0,0,.3);}
+.rl-q-wrap{background:var(--gl);border:1px solid var(--br);border-radius:18px;padding:20px;margin-bottom:16px;animation:si .4s cubic-bezier(.34,1.56,.64,1);}
+.rl-q-text{font-size:clamp(1rem,2.5vw,1.3rem);font-weight:800;margin-bottom:6px;}
+.rl-formula{font-family:'Fredoka One',cursive;font-size:clamp(1.1rem,3vw,1.6rem);color:var(--y);margin-bottom:14px;}
+.rl-opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+@media(max-width:500px){.rl-opts-grid{grid-template-columns:1fr}}
+.rl-opt{display:flex;align-items:center;gap:9px;padding:12px 14px;border-radius:12px;border:2px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);cursor:pointer;font-weight:700;font-size:.92rem;color:#fff;transition:all .14s;}
+.rl-opt:hover:not(:disabled){background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);transform:translateY(-2px);}
+.rl-opt.correct{background:var(--g2);border-color:var(--g);color:var(--g);}
+.rl-opt.wrong{background:var(--r2);border-color:var(--r);color:var(--r);opacity:.6;}
+.rl-opt .opt-l{width:26px;height:26px;border-radius:7px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',cursive;font-size:.8rem;flex-shrink:0;}
+.roulette-scores{background:var(--gl);border:1px solid var(--br);border-radius:16px;padding:16px;}
+.rl-scores-title{font-family:'Fredoka One',cursive;font-size:1rem;margin-bottom:10px;}
+.rl-score-row{display:flex;align-items:center;gap:10px;padding:8px;border-radius:9px;}
+.rl-score-row:nth-child(odd){background:rgba(255,255,255,.04);}
+.rl-score-name{flex:1;font-weight:800;font-size:.9rem;}
+.rl-score-val{font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--y);}
+
+/* Roulette segment bonus text */
+.roulette-prize-popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg,var(--bg2),var(--bg3));border:3px solid var(--y);border-radius:22px;padding:28px 32px;text-align:center;z-index:400;animation:spIn .5s cubic-bezier(.34,1.56,.64,1);box-shadow:0 0 60px rgba(255,214,10,.3);}
+.roulette-prize-popup.hide{display:none;}
+.rpl-ico{font-size:3.5rem;display:block;margin-bottom:8px;}
+.rpl-title{font-family:'Fredoka One',cursive;font-size:1.8rem;color:var(--y);margin-bottom:6px;}
+.rpl-sub{color:var(--dim);font-size:.9rem;font-weight:700;margin-bottom:16px;}
